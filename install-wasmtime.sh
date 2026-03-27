@@ -25,9 +25,11 @@ else
     os="linux"
 fi
 ARCH=$arch
-VER=v0.38.1
-wget https://github.com/bytecodealliance/wasmtime/releases/download/${VER}/wasmtime-${VER}-${ARCH}-${os}-c-api.tar.xz
-tar -xvf ./wasmtime-${VER}-${ARCH}-${os}-c-api.tar.xz > /dev/null
+#VER=v0.38.1
+#wget https://github.com/bytecodealliance/wasmtime/releases/download/${VER}/wasmtime-${VER}-${ARCH}-${os}-c-api.tar.xz
+VER=v39.0.1
+wget https://github.com/Loongson-Cloud-Community/wasmtime/releases/download/v39.0.1/wasmtime-v39.0.1-loongarch64-linux-c-api_abi1.0.tar.xz
+tar -xvf ./wasmtime-${VER}-${ARCH}-${os}-c-api_abi1.0.tar.xz > /dev/null
 if [ -d wasmtime-c-api ]; then
     rm -rf wasmtime-c-api
 fi
@@ -40,7 +42,8 @@ if { echo "int main(void) {}" | gcc -o /dev/null -v -x c - &> /dev/stdout| grep 
         source "$HOME/.cargo/env"
     fi
 
-    git clone https://github.com/bytecodealliance/wasmtime -b ${VER} --depth 1 \
+#    git clone https://github.com/bytecodealliance/wasmtime -b ${VER} --depth 1 \
+    git clone https://github.com/Loongson-Cloud-Community/wasmtime.git -b ${VER}-loongarch64-abi1.0 --depth 1 \
         && cd wasmtime \
         && git submodule update --init \
         && RUSTFLAGS="-C target-feature=-crt-static" \
